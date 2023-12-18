@@ -17,5 +17,15 @@ pipeline {
                 }
             }
         }
+        stage('push image to hub'){
+            steps{
+                script{
+                    withCredentials([string(credentialsId: 'dockerpwd', variable: 'dockerpwd')]) {
+                    sh 'docker login -u chsivakumarstocks -p ${dockerpwd}'
+                    }
+                    sh 'docker push chsivakumarstocks/payservice-image'
+                }
+            }
+        }
     }
 }
